@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ds-background: #FFFFFF;
+    --ds-surface: #F4F5F7;
+    --ds-text: #172B4D;
+    --ds-text-subtle: #42526E;
+    --ds-border: #DFE1E6;
+    --ds-link: #0052CC;
+    --ds-primary: #0052CC;
+    --header-height: 4rem;
+    --sidebar-width: 260px;
+  }
+
+  [data-theme='dark'] {
+    --ds-background: #091E42;
+    --ds-surface: #1D2B41;
+    --ds-text: #EBECF0;
+    --ds-text-subtle: #A5ADBA;
+    --ds-border: #2C3E50;
+    --ds-link: #4C9AFF;
+    --ds-primary: #4C9AFF;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: var(--ds-background);
+    color: var(--ds-text);
+    font-family: 'Wix Madefor Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
+/* UNIVERSAL RESPONSIVE ARCHITECTURE */
+.app-shell {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.sidebar-node {
+  width: var(--sidebar-width);
+  height: 100%;
+  flex-shrink: 0;
+  border-right: 1px solid var(--ds-border);
+  background: var(--ds-background);
+  z-index: 50;
+}
+
+.main-viewport {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  /* Enable full page scrolling */
+  overflow-x: hidden;
+  background-color: var(--ds-background);
+}
+
+.top-navigation {
+  height: var(--header-height);
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--ds-border);
+  background-color: var(--ds-background);
+  z-index: 60;
+  position: sticky;
+  top: 0;
+  pointer-events: auto;
+  /* Ensure header doesn't block sidebar clicks */
+}
+
+/* BOARD SPECIFIC FLEX ENGINE */
+.board-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.board-header {
+  flex-shrink: 0;
+  padding: 1rem 1.5rem;
+}
+
+.board-content {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  background-color: var(--ds-surface);
+  padding: 1rem 1.5rem;
+}
+
+/* CUSTOM SCROLLBARS - BOOTSTRAP STYLE */
+.custom-scrollbar-wide::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+
+.custom-scrollbar-wide::-webkit-scrollbar-track {
+  background: #F4F5F7;
+}
+
+.custom-scrollbar-wide::-webkit-scrollbar-thumb {
+  background: #C1C7D0;
+  border-radius: 10px;
+  border: 2px solid #F4F5F7;
+}
+
+.custom-scrollbar-wide::-webkit-scrollbar-thumb:hover {
+  background: #A5ADBA;
+}
+
+/* JIRA STYLE BUTTONS */
+.jira-button-primary {
+  @apply bg-[#0052CC] text-white px-3 py-1.5 rounded-[3px] font-semibold text-sm hover:bg-[#003484] transition-all flex items-center;
+}
+
+.jira-button-subtle {
+  @apply text-[#42526E] px-3 py-1.5 rounded-[3px] font-semibold text-sm hover:bg-[#F4F5F7] transition-all flex items-center;
+}
+
+/* RESPONSIVE UTILS */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 0px;
+  }
+
+  /* Mobile/Tablet logic would go here */
+}
+
+/* BOOTSTRAP OVERRIDES TO MAINTAIN ATLASSIAN FEEL */
+.btn {
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.card {
+  border-radius: 3px;
+  border-color: #DFE1E6;
+}
+@media print {
+  .top-navigation,
+  .sidebar-node,
+  .no-print {
+    display: none !important;
+  }
+  .app-shell {
+    display: block !important;
+  }
+  .main-viewport {
+    overflow: visible !important;
+    position: static !important;
+    padding: 0 !important;
+  }
+  body {
+    overflow: visible !important;
+  }
+}
